@@ -1,41 +1,19 @@
-name: Deploy To Tencent Cloud
-
-on:
-  [push] # event
+on: [push]
 
 jobs:
-  build: # job1 id
-    runs-on: ubuntu-latest # Ubuntu Version
-
-    name: A job to deploy blog.
+  deploy:
+    runs-on: ubuntu-latest
+    name: Tencent Cloudbase Github Action Example
     steps:
-    - name: Checkout 
-      uses: actions/checkout@v1 
-      with: # condition
-        submodules: true # Checkout private submodules(themes or something else).
-
-    - name: Deploy Hexo to Tencent Cloudbase environment
-      uses: elfisworking/Deply_hexo_to_Tecent_cloud@1.0.0
-      with:
-        cloud_secret_id: ${{ secrets.QCLOUDAPIKEYID }}
-        cloud_secret_key: ${{ secrets.QCLOUDAPIKEY }}
-        cloud_env_id: ${{ secrets.QCLOUDENVID }}
-
-    - name: Send mail
-      if: always()
-      uses: dawidd6/action-send-mail@v2
-      with:
-        # mail server settings
-        server_address: smtp.exmail.qq.com
-        server_port: 465
-        # user credentials
-        username: ${{ secrets.EMAIL_USERNAME }}
-        password: ${{ secrets.EMAIL_PASSWORD }}
-        # email subject
-        subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
-        # email body as text
-        body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
-        # comma-separated string, send email to
-        to: user@gmail.com
-        # from email name
-        from: Service_bot
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Deploy static to Tencent CloudBase
+        id: deployStatic
+        uses: TencentCloudBase/cloudbase-action@v1
+        with:
+          secretId: ${{ secrets.SECRET_ID }}
+          secretKey: ${{ secrets.SECRET_KEY }}
+          envId: ${{ secrets.ENV_ID }}
+          staticSrcPath: build
+      - name: Get the deploy result
+        run: echo "Deploy to cloudbase result ${{ steps.deployStatic.outputs.deployResult }}"
