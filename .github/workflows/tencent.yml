@@ -1,32 +1,16 @@
-name: Deploy to Tencent CloudBase
-
+name: Greeting from Mona
 on: push
 
 jobs:
-  build:
+  my-job:
+    name: My Job
     runs-on: ubuntu-latest
-    name: Deploy Hexo Souce Repo to Tencent CloudBase
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
-      # NPM and Hexo
-      - name: NPM
-        run: |
-          node -v
-          npm i -g hexo-cli
-          npm i
-          hexo clean
-          hexo g
-      # Deploy static to Tencent CloudBase
-      - name: Deploy static to Tencent CloudBase
-        id: deployStatic
-        uses: TencentCloudBase/cloudbase-action@v1.1.1
-        with:
-          secretId: ${{ secrets.SECRETID }}
-          secretKey: ${{ secrets.SECRETKEY }}
-          envId: ${{ secrets.ENVID }}
-          staticSrcPath: public
+    - name: Print a greeting
+      env:
+        MY_VAR: Hi there! My name is
+        FIRST_NAME: Mona
+        MIDDLE_NAME: The
+        LAST_NAME: Octocat
+      run: |
+        echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
