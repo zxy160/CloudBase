@@ -14,12 +14,13 @@ jobs:
         with:
           node-version: '10.x'
       # NPM and Hexo
-      - name: NPM
-        run: npm install
-      - name: Clean
-        run: ./node_modules/.bin/hexo clean
-      - name: Generate
-        run: ./node_modules/.bin/hexo generate
+    - name: Install dependencies & Generate static files
+      run: |
+        node -v
+        npm i -g hexo-cli
+        npm i
+        hexo clean
+        hexo g
       # Deploy static to Tencent CloudBase
       - name: Deploy static to Tencent CloudBase
         id: deployStatic
