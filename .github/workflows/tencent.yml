@@ -28,9 +28,6 @@ jobs:
           npm install hexo-cli -g
           npm install
 
-      - name: login to cloudbase
-        run: |
-          tcb login --apiKeyId ${{secrets.SECRETID}} --apiKey ${{secrets.SECRETKEY}}
 
       - name: Deploy Github page.
         run: |
@@ -38,6 +35,10 @@ jobs:
           hexo g
           hexo d
 
+      - name: login to cloudbase
+        run: |
+          tcb login --apiKeyId ${{secrets.SECRETID}} --apiKey ${{secrets.SECRETKEY}}
+          
       - name: Deploy cloudbase.
         run: |
           tcb hosting deploy ./public -r gz -e ${{secrets.ENVID}}
