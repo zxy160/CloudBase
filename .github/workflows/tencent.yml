@@ -16,10 +16,16 @@ jobs:
       # NPM and Hexo
       - name: NPM
         run: npm install
-      # Deploy static to Tencent CloudBase
-      - name: publish blog to tencent static site
-        working-directory: ./public
+
+      - name: install tencent cloud cloudbase
         shell: bash
-        run: |
-          tcb login --apiKeyId ${{ secrets.SECRETID }} --apiKey ${{ secrets.SECRETKEY }}
-          tcb hosting deploy ./ -e ${{ secrets.ENVID }}
+        run: npm i -g @cloudbase/cli
+      # Deploy static to Tencent CloudBase
+      - name: Deploy static to Tencent CloudBase
+        id: deployStatic
+        uses: TencentCloudBase/cloudbase-action@v1.1.1
+        with:
+          secretId: ${{ secrets.SECRETID }}
+          secretKey: ${{ secrets.SECRETKEY }}
+          envId: ${{ secrets.ENVID }}
+          staticSrcPath: public
