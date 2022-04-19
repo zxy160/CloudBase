@@ -20,12 +20,18 @@ jobs:
       - name: install tencent cloud cloudbase
         shell: bash
         run: npm i -g @cloudbase/cli
-      # Deploy static to Tencent CloudBase
-      - name: Deploy static to Tencent CloudBase
-        id: deployStatic
-        uses: TencentCloudBase/cloudbase-action@v1.1.1
-        with:
-          secretId: ${{ secrets.SECRETID }}
-          secretKey: ${{ secrets.SECRETKEY }}
-          envId: ${{ secrets.ENVID }}
-          staticSrcPath: public
+
+      - name: tcb login
+        working-directory: ./public
+        shell: bash
+        run: tcb login --apiKeyId ${{ secrets.SECRETID }} --apiKey ${{ secrets.SECRETKEY }}
+
+      - name: tcb delete
+        working-directory: ./public
+        shell: bash
+        run: tcb hosting delete ./ -e ${{ secrets.ENVID }}
+           
+      - name: tcb delete
+        working-directory: ./public
+        shell: bash
+        run: tcb hosting deploy ./ -e ${{ secrets.ENVID }}
