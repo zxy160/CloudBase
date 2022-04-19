@@ -35,11 +35,9 @@ jobs:
           hexo g
           hexo d
 
-      - name: Deploy static to Tencent CloudBase
-        id: deployStatic
-        uses: TencentCloudBase/cloudbase-action@v2
-        with:
-          secretId: ${{ secrets.SECRETID }}
-          secretKey: ${{ secrets.SECRETKEY }}
-          envId: ${{ secrets.ENVID }}
-          staticSrcPath: public
+      - name: publish blog to tencent static site
+        working-directory: ./public
+        shell: bash
+        run: |
+          tcb login --apiKeyId ${{ secrets.SECRETID }} --apiKey ${{ secrets.SECRETKEY }}
+          tcb hosting deploy ./ -e ${{ secrets.ENVID }}
