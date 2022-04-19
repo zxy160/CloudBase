@@ -39,5 +39,5 @@ jobs:
         shell: bash
         run: |
           tcb login --apiKeyId ${{ secrets.SECRETID }} --apiKey ${{ secrets.SECRETKEY }}
-          tcb hosting delete ./ -e ${{ secrets.ENVID }}
+          tcb hosting delete -e ${{ secrets.ENVID }}
           tcb hosting deploy ./ -e ${{ secrets.ENVID }}
