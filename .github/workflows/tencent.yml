@@ -11,11 +11,13 @@ jobs:
       - name: install tencent cloud cloudbase
         shell: bash
         run: npm i -g @cloudbase/cli
-        
+
       # 使用云开发 Github Action 部署
-      - name: publish blog to tencent static site
-        working-directory: ./public
-        shell: bash
-        run: |
-          tcb login --apiKeyId ${{ secrets.SECRETID }} --apiKey ${{ secrets.SECRETKEY }}
-          tcb hosting deploy ./ -e ${{ secrets.ENVID }}
+      - name: Deploy static to Tencent CloudBase
+        id: deployStatic
+        uses: TencentCloudBase/cloudbase-action@v1.1.1
+        with:
+          secretId: ${{ secrets.SECRET_ID }}
+          secretKey: ${{ secrets.SECRET_KEY }}
+          envId: ${{ secrets.ENV_ID }}
+          staticSrcPath: public
