@@ -1,0 +1,43 @@
+name: Deploy to Tencent CloudBase
+
+on: push
+
+jobs:
+  build:
+    name: Deploy cayzlh.com
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node_version: [13.x]
+
+    steps:
+
+      - name: Checkout self
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node_version }}
+
+
+      - name: Install dependencies.
+        run: |
+          npm i -g @cloudbase/cli
+          npm install hexo-cli -g
+          npm install
+
+
+      - name: Deploy Github page.
+        run: |
+          hexo clean
+          hexo g
+
+      - name: publish blog to tencent static site
+        working-directory: ./public
+        shell: bash
+        run: |
+          tcb login --apiKeyId ${{ secrets.SECRETID }} --apiKey ${{ secrets.SECRETKEY }}
+          tcb hosting delete ./ -e ${{ secrets.ENVID }}
+          tcb hosting deploy ./ -e ${{ secrets.ENVID }}
