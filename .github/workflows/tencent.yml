@@ -17,9 +17,9 @@ jobs:
       - name: NPM
         run: npm install
       - name: Clean
-        run: ./node_modules/.bin/hexo clean
+        run: hexo clean
       - name: Generate
-        run: ./node_modules/.bin/hexo generate
+        run: hexo generate
       # Deploy static to Tencent CloudBase
       - name: Deploy static to Tencent CloudBase
         id: deployStatic
