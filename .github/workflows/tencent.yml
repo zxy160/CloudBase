@@ -8,6 +8,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       
+      - name: install tencent cloud cloudbase
+        shell: bash
+        run: npm i -g @cloudbase/cli
+        
       # 使用云开发 Github Action 部署
       - name: publish blog to tencent static site
         working-directory: ./public
