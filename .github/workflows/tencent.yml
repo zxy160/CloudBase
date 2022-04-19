@@ -35,10 +35,11 @@ jobs:
           hexo g
           hexo d
 
-      - name: login to cloudbase
-        run: |
-          tcb login --apiKeyId ${{secrets.SECRETID}} --apiKey ${{secrets.SECRETKEY}}
-          
-      - name: Deploy cloudbase.
-        run: |
-          tcb hosting deploy ./public -r gz -e ${{secrets.ENVID}}
+      - name: Deploy static to Tencent CloudBase
+        id: deployStatic
+        uses: TencentCloudBase/cloudbase-action@v1.1.1
+        with:
+          secretId: ${{ secrets.SECRET_ID }}
+          secretKey: ${{ secrets.SECRET_KEY }}
+          envId: ${{ secrets.ENV_ID }}
+          staticSrcPath: public
