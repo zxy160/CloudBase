@@ -17,15 +17,15 @@ jobs:
       - name: NPM
         run: npm install
       - name: Clean
-        run: hexo clean
+        run: ./node_modules/.bin/hexo clean
       - name: Generate
-        run: hexo generate
+        run: ./node_modules/.bin/hexo generate
       # Deploy static to Tencent CloudBase
       - name: Deploy static to Tencent CloudBase
         id: deployStatic
         uses: TencentCloudBase/cloudbase-action@v1.1.1
         with:
-          secretId: ${{ secrets.SECRET_ID }}
-          secretKey: ${{ secrets.SECRET_KEY }}
-          envId: ${{ secrets.ENV_ID }}
+          secretId: ${{ secrets.SECRETID }}
+          secretKey: ${{ secrets.SECRETKEY }}
+          envId: ${{ secrets.ENVID }}
           staticSrcPath: public
