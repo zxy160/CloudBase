@@ -240,12 +240,12 @@ custom_css:
 # 网页访问统计
 # Analysis of website visitors
 web_analytics:  # 网页访问统计
-  enable: ture
+  enable: true
 
   # 遵循访客浏览器"请勿追踪"的设置，如果开启则不统计其访问
   # Follow the "Do Not Track" setting of the visitor's browser
   # See: https://www.w3.org/TR/tracking-dnt/
-  follow_dnt: ture
+  follow_dnt: true
 
   # 百度统计的 Key，值需要获取下方链接中 `hm.js?` 后边的字符串
   # Baidu analytics, get the string behind `hm.js?`
@@ -292,7 +292,7 @@ web_analytics:  # 网页访问统计
     path: window.location.pathname
     # 开启后不统计本地路径( localhost 与 127.0.0.1 )
     # If ture, ignore localhost & 127.0.0.1
-    ignore_local: ture
+    ignore_local: true
 
 # 对页面中的图片和评论插件进行懒加载处理，可见范围外的元素不会提前加载
 # Lazy loading of images and comment plugin on the page
@@ -432,7 +432,7 @@ footer:
   # 展示网站的 PV、UV 统计数
   # Display website PV and UV statistics
   statistics:
-    enable: ture
+    enable: true
 
     # 统计数据来源，使用 leancloud 需要设置 `web_analytics: leancloud` 中的参数；使用 busuanzi 不需要额外设置，但是有时不稳定，另外本地运行时 busuanzi 显示统计数据很大属于正常现象，部署后会正常
     # Data source. If use leancloud, you need to set the parameter in `web_analytics: leancloud`
@@ -440,11 +440,28 @@ footer:
     source: "leancloud"
     pv_format: "总访问量 {} 次"
     uv_format: "总访客数 {} 人"
-ytics: leancloud` 中的参数；使用 busuanzi 不需要额外设置，但是有时不稳定，另外本地运行时 busuanzi 显示统计数据很大属于正常现象，部署后会正常
-    # Data source. If use leancloud, you need to set the parameter in `web_analytics: leancloud`
-    # Options: busuanzi | leancloud
-    source: "busuanzi"
-Path of Banner image, can be a relative path or an absolute path, the same on other pages
+
+  # 国内大陆服务器的备案信息
+  # For Chinese mainland website policy, other areas keep disable
+  beian:
+    enable: false
+    # ICP证号
+    icp_text: 京ICP证123456号
+    # 公安备案号，不填则只显示ICP
+    police_text: 京公网安备12345678号
+    # 公安备案的编号，用于URL跳转查询
+    police_code: 12345678
+    # 公安备案的图片. 为空时不显示备案图片
+    police_icon: /img/police_beian.png
+
+
+#---------------------------
+# 首页
+# Home Page
+#---------------------------
+index:
+  # 首页 Banner 头图，可以是相对路径或绝对路径，以下相同
+  # Path of Banner image, can be a relative path or an absolute path, the same on other pages
   banner_img: /img/default.png
 
   # 头图高度，屏幕百分比
