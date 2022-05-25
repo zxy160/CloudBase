@@ -805,7 +805,7 @@ valine:
   serverURLs: 'https://p1nt2l4h.lc-cn-n1-shared.com'
   emojiCDN:
   emojiMaps:
-  enableQQ: false
+  enableQQ: true
 
 # Waline
 # 从 Valine 衍生而来，额外增加了服务端和多种功能
